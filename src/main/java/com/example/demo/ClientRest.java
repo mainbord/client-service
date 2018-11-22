@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/clients")
 @RequiredArgsConstructor
 public class ClientRest {
 
@@ -33,14 +34,14 @@ public class ClientRest {
         repository.deleteById(id);
     }
 
-    @GetMapping(value = "/clients")
+    @GetMapping(value = "/")
     public ResponseEntity<List<ClientEntity>> getAllClients(){
         return ResponseEntity.ok(repository.findAll());
     }
 
-    @GetMapping(value = "/clients/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<ClientEntity> getOneClient(@PathVariable Integer id){
-        return ResponseEntity.ok(repository.findById(id).get());
+        return ResponseEntity.ok(repository.findById(id).orElse(null));
     }
 
 }
